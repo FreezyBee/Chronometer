@@ -26,11 +26,6 @@ class Timer extends Object
     private $container;
 
     /**
-     * @var float
-     */
-    private $startTime;
-
-    /**
      * @var array
      */
     static private $events = [];
@@ -63,14 +58,6 @@ class Timer extends Object
     }
 
     /* *********** internal *********** */
-
-    /**
-     * @internal
-     */
-    public function applicationStartup()
-    {
-        $this->startTime = microtime(true);
-    }
 
     /**
      * @internal
@@ -115,15 +102,16 @@ class Timer extends Object
         $data['parameters'] = $parameters;
         $data['events'] = [];
 
+        $startTime = Debugger::$time;
         $stopTime = microtime(true);
 
         foreach (self::$events as $name => $values) {
-            $start = isset($values['start']) ? $values['start'] : $this->startTime;
+            $start = isset($values['start']) ? $values['start'] : $startTime;
             $stop = isset($values['stop']) ? $values['stop'] : $stopTime;
             $data['events'][$name] = round($stop - $start, 6);
         }
 
-        $data['totalTime'] = round($stopTime - $this->startTime, 6);
+        $data['totalTime'] = round($stopTime - $startTime, 6);
 
         $this->saveOutput($data);
     }

@@ -41,7 +41,6 @@ class ChronometerExtension extends CompilerExtension
             ->setArguments([$config['logFilename']]);
 
         $builder->getDefinition('application')
-            ->addSetup('$service->onStartup[] = ?', [[$this->prefix('@timer'), 'applicationStartup']])
             ->addSetup('$service->onShutdown[] = ?', [[$this->prefix('@timer'), 'applicationShutdown']])
             ->addSetup('$service->onError[] = ?', [[$this->prefix('@timer'), 'applicationError']]);
     }
