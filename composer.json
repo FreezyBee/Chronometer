@@ -1,0 +1,32 @@
+{
+  "name": "freezy-bee/chronometer",
+  "type": "library",
+  "description": "Simple analysis chronometer",
+  "keywords": [
+    "nette",
+    "freezy-bee",
+    "chronometer"
+  ],
+  "homepage": "http://freezybee.ifire.cz",
+  "license": [
+    "BSD-3-Clause",
+    "GPL-2.0",
+    "GPL-3.0"
+  ],
+  "authors": [
+    {
+      "name": "Jakub Janata",
+      "homepage": "https://ifire.cz"
+    }
+  ],
+  "require": {
+    "nette/application": "~2.3",
+    "nette/di": "~2.3",
+    "tracy/tracy": "~2.3"
+  },
+  "autoload": {
+    "psr-4": {
+      "FreezyBee\\Logger\\": "src/"
+    }
+  }
+}
