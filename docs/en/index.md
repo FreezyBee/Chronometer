@@ -25,6 +25,7 @@ Full configuration
 chronometer:
     enable: false # defaul true
     logFilename: test.log # path from Nette Debugger dir - default chronometer.log
+    jsonFilename: test.log # path from Nette Debugger dir - default chronometer.json
 ```
 
 Example
@@ -51,6 +52,12 @@ class InfinityPresenter extends BasePresenter
         // some code ...
 
         Timer::stopMeasure('nameX');        
+
+        // you can mearuse a time from start a application
+        Timer::stopMeasure('measureFromStartApplication');
+
+        // or you can mearuse a time to shutdown a application
+        Timer::startMeasure('measureToShutdownApplication');
     }
     ...
 }
@@ -74,28 +81,34 @@ class AnalyzatorPresenter extends BasePresenter
 
         // return array
         dump($this->chronometerParser->getLog(true));
+
+        // generate valid .json file from log
+        $this->chronometerParser->generateJsonLogFile()
     }
     ...
 }
 ```
 
 ```json
-[
-    {
-        "status": "success",
-        "presenter": "Homepage",
-        "action": "default",
-        "parameters": {
-            "action":"default",
-            "id":null
+{
+    "data": [
+        {
+            "status": "success",
+            "presenter": "Homepage",
+            "action": "default",
+            "parameters": {
+                "action": "default",
+                "id": null
+            },
+            "events": {
+                "nameX": 0.002293,
+                "nameY": 0.003824
+            },
+            "totalTime": 0.004799
         },
-        "events": {
-            "nameX": 0.002293,
-            "nameY": 0.003824
-        },
-        "totalTime": 0.004799
-    },
-    {
-    }
-]
+        {
+            ...
+        }
+    ]
+}
 ```

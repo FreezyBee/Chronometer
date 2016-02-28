@@ -16,7 +16,8 @@ class ChronometerExtension extends CompilerExtension
      */
     private $defaults = [
         'enable' => true,
-        'logFilename' => 'chronometer.log'
+        'logFilename' => 'chronometer.log',
+        'jsonFilename' => 'chronometer.json'
     ];
 
     /**
@@ -38,7 +39,7 @@ class ChronometerExtension extends CompilerExtension
 
         $builder->addDefinition($this->prefix('parser'))
             ->setClass('FreezyBee\Chronometer\LogParser')
-            ->setArguments([$config['logFilename']]);
+            ->setArguments([$config['logFilename'], $config['jsonFilename']]);
 
         $builder->getDefinition('application')
             ->addSetup('$service->onShutdown[] = ?', [[$this->prefix('@timer'), 'applicationShutdown']])
